@@ -1,0 +1,18 @@
+"""Game constants."""
+
+WIDTH = 600
+HEIGHT = 400
+
+PLAYER_SIZE = 30
+PLAYER_SPEED = 5
+
+OBSTACLE_WIDTH = 50
+OBSTACLE_HEIGHT = 20
+OBSTACLE_SPEED = 4
+
+FPS = 60
+
+# Colors
+WHITE = (255, 255, 255)
+RED = (255, 50, 50)
+BLACK = (0, 0, 0)
