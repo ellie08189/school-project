@@ -19,7 +19,11 @@ There is a helper script to run the above rather than the long command, just do:
 
 You are now inside the venv and are using the venv python.  Changes made to python, such as new pip modules, are only made inside this venv, they do not affect the global python.
 
-To deactivate:
+To install the pip modules:
+
+`pip install -r requirements.txt`
+
+To deactivate the venv:
 
 `deactivate`
 
