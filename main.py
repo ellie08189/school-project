@@ -20,7 +20,7 @@ def main():
     player = Player()
     obstacles = []
     spawn_timer = 0
-    spawn_interval = 90  # frames
+    spawn_interval = 30  # frames
 
     running = True
     game_over = False
