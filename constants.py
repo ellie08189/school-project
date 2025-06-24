@@ -1,7 +1,7 @@
 """Game constants."""
 
-WIDTH = 600
-HEIGHT = 400
+WIDTH = 900
+HEIGHT = 800
 
 PLAYER_SIZE = 30
 PLAYER_SPEED = 5
