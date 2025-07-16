@@ -1,65 +1,34 @@
-"""Main game loop."""
-
-# pylint: disable=no-member
+"""test"""
 
 import sys
 import pygame
-from constants import WIDTH, HEIGHT, WHITE, BLACK, FPS
-from player import Player
-from obstacle import spawn_obstacle, move_and_draw_obstacles
 
 pygame.init()
-
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Move the Man - Avoid Obstacles")
+screen = pygame.display.set_mode((1024, 800))
 clock = pygame.time.Clock()
 
+# Load background image (make sure it's wide enough to scroll)
+bg = pygame.image.load("background.png").convert()
+bg_width = bg.get_width()
 
-def main():
-    """Run the game."""
-    player = Player()
-    obstacles = []
-    spawn_timer = 0
-    spawn_interval = 30  # frames
+# Set initial scroll
+scroll = 0
+scroll_speed = 2
 
-    running = True
-    game_over = False
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
 
-    while running:
-        clock.tick(FPS)
-        screen.fill(WHITE)
+    # Scroll background in the opposite direction
+    scroll += scroll_speed
+    if scroll < -bg_width:
+        scroll = 0
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
+    # Draw two copies of the background side-by-side
+    screen.blit(bg, (scroll, 0))
+    screen.blit(bg, (scroll + bg_width, 0))
 
-        if not game_over:
-            keys = pygame.key.get_pressed()
-            player.update(keys)
-
-            spawn_timer += 1
-            if spawn_timer >= spawn_interval:
-                spawn_timer = 0
-                obstacles.append(spawn_obstacle())
-
-            move_and_draw_obstacles(screen, obstacles)
-
-            if any(player.rect.colliderect(obstacle) for obstacle in obstacles):
-                game_over = True
-
-            screen.blit(player.image, player.rect)
-
-        else:
-            font = pygame.font.SysFont(None, 48)
-            text = font.render("Game Over! Close window to exit.", True, BLACK)
-            text_rect = text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-            screen.blit(text, text_rect)
-
-        pygame.display.flip()
-
-    pygame.quit()
-    sys.exit()
-
-
-if __name__ == "__main__":
-    main()
+    pygame.display.update()
+    clock.tick(60)
